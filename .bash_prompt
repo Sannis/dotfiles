@@ -71,10 +71,16 @@ function is_svn_repository {
 # Return the prompt symbol to use, colorized based on the return value of the
 # previous command.
 function get_prompt_end_symbol {
+  if [[ ${EUID} == 0 ]] ; then
+    symbol="#";
+  else 
+    symbol="\$"
+  fi
+
   if test $1 -eq 0 ; then
-      echo "\$"
+      echo "${symbol}"
   else
-      echo "${RED}\$${COLOR_NONE}"
+      echo "${RED}${symbol}${COLOR_NONE}"
   fi
 }
 
@@ -99,11 +105,11 @@ function get_prompt_svn {
 
 # Set the full bash prompt.
 function set_bash_prompt {
-  # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the 
+  # Set the END variable. We do this first so we don't lose the 
   # return value of the last command.
   local END=$(get_prompt_end_symbol $?)
 
-  # Set the BRANCH variable.
+  # Set the SCM variable (git/svn branch name and status)
   if is_git_repository ; then
     local SCM="$(get_prompt_git) "
   elif is_svn_repository ; then
@@ -111,9 +117,16 @@ function set_bash_prompt {
   else
     local SCM=""
   fi
+
+  # Set the USER variable
+  if [[ ${EUID} == 0 ]] ; then
+    local USER="${RED}\u${COLOR_NONE}"
+  else
+    local USER="\u"
+  fi
   
   # Set the bash prompt variable.
-  PS1="\u@\h: \W ${SCM}${END}> "
+  PS1="${USER}@\h: \W ${SCM}${END} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
