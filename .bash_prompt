@@ -22,6 +22,58 @@ LIGHT_GREEN="\[\033[1;32m\]"
  LIGHT_GRAY="\[\033[0;37m\]"
  COLOR_NONE="\[\033[0m\]"
 
+function get_prompt_jobs {
+  # Information about background/stopped/screened processes.
+  PROMPT_JOBS=""
+
+  # Detached Screen Sessions
+  local DTCHSCRN=$(screen -ls | grep -c Detach )
+  if [[ ${DTCHSCRN} -gt 2 ]]; then
+    PROMPT_JOBS="${PROMPT_JOBS}\[${COLOR_RED}\][scr:${DTCHSCRN}] "
+  elif [[ ${DTCHSCRN} -gt 0 ]]; then
+    PROMPT_JOBS="${PROMPT_JOBS}\[${COLOR_YELLOW}\][scr:${DTCHSCRN}] "
+  fi
+
+  # Backgrounded running jobs
+  local BKGJBS=$(jobs -r | wc -l )
+  if [[ ${BKGJBS} -gt 2 ]]; then
+    PROMPT_JOBS="${PROMPT_JOBS}\[${COLOR_RED}\][bkg:${BKGJBS}]"
+  elif [[ ${BKGJBS} -gt 0 ]]; then
+    PROMPT_JOBS="${PROMPT_JOBS}\[${COLOR_YELLOW}\][bkg:${BKGJBS}] "
+  fi
+
+  # Stopped Jobs
+  local STPJBS=$(jobs -s | wc -l )
+  if [[ ${STPJBS} -gt 2 ]]; then
+    PROMPT_JOBS="${PROMPT_JOBS}\[${COLOR_RED}\][stp:${STPJBS}]"
+  elif [[ ${STPJBS} -gt 0 ]]; then
+    PROMPT_JOBS="${PROMPT_JOBS}\[${COLOR_YELLOW}\][stp:${STPJBS}] "
+  fi
+
+  if [[ ${PROMPT_JOBS} != "" ]]; then
+    PROMPT_JOBS=" ${PROMPT_JOBS}"
+  fi
+
+  echo ${PROMPT_JOBS}
+}
+
+# Trim working dir to 1/4 the screen width
+function get_prompt_workingdir {
+  local pwdmaxlen=$(($COLUMNS/4))
+  local trunc_symbol="..."
+  if [[ $PWD == $HOME* ]]; then
+    newPWD="~${PWD#$HOME}" 
+  else
+    newPWD=${PWD}
+  fi
+  if [[ ${#newPWD} -gt $pwdmaxlen ]]; then
+    local pwdoffset=$(( ${#newPWD} - $pwdmaxlen + 3 ))
+    newPWD="${trunc_symbol}${newPWD:$pwdoffset:$pwdmaxlen}"
+  fi
+
+  echo $newPWD
+}
+
 # Detect whether the current directory is a git repository.
 function is_git_repository {
   git branch --no-color > /dev/null 2>&1
@@ -40,13 +92,13 @@ function get_prompt_git {
   else
     state="${RED}"
   fi
-  
+
   # Get the name of the branch.
   branch_pattern="^# On branch ([^${IFS}]*)"    
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
   fi
-  
+
   # Get the difference with remote tracking branch.
   sync_action=""
   ahead_pattern="# Your branch is ahead of .* by ([^ ]*) commit"
@@ -96,23 +148,6 @@ function get_prompt_svn {
   echo "(${branch})"
 }
 
-# Trim working dir to 1/4 the screen width
-function get_prompt_workingdir {
-  local pwdmaxlen=$(($COLUMNS/4))
-  local trunc_symbol="..."
-  if [[ $PWD == $HOME* ]]; then
-    newPWD="~${PWD#$HOME}" 
-  else
-    newPWD=${PWD}
-  fi
-  if [ ${#newPWD} -gt $pwdmaxlen ]; then
-    local pwdoffset=$(( ${#newPWD} - $pwdmaxlen + 3 ))
-    newPWD="${trunc_symbol}${newPWD:$pwdoffset:$pwdmaxlen}"
-  fi
-  
-  echo $newPWD
-}
-
 # Return the prompt symbol to use, colorized based on the return value of the
 # previous command.
 function get_prompt_end_symbol {
@@ -131,35 +166,38 @@ function get_prompt_end_symbol {
 
 # Set the full bash prompt.
 function set_bash_prompt {
-  # Set the END variable. We do this first so we don't lose the 
-  # return value of the last command.
-  local END=$(get_prompt_end_symbol $?)
+  # Set the PROMPT_USER variable
+  if [[ ${EUID} == 0 ]] ; then
+    local PROMPT_USER="${RED}\u${COLOR_NONE}"
+  else
+    local PROMPT_USER="\u"
+  fi
 
-  # Set the SCM variable (git/svn branch name and status)
+  # Set the PROMPT_JOBS variable
+  local PROMPT_JOBS=$(get_prompt_jobs)
+
+  # Set the PROMPT_PWD variable
+  if [ -w "${PWD}" ]; then 
+    local PROMPT_PWD="${LIGHT_BLUE}$(get_prompt_workingdir)${COLOR_NONE}"
+  else
+    local PROMPT_PWD="${LIGHT_RED}$(get_prompt_workingdir)${COLOR_NONE}"
+  fi
+
+  # Set the PROMPT_SCM variable (git/svn branch name and status)
   if is_git_repository ; then
-    local SCM="$(get_prompt_git) "
+    local PROMPT_SCM="$(get_prompt_git) "
   elif is_svn_repository ; then
-    local SCM="$(get_prompt_svn) "
+    local PROMPT_SCM="$(get_prompt_svn) "
   else
     local SCM=""
   fi
 
-  # Set the USER variable
-  if [[ ${EUID} == 0 ]] ; then
-    local USER="${RED}\u${COLOR_NONE}"
-  else
-    local USER="\u"
-  fi
-  
-  # Set the PROMPT_PWD variable
-  if [ -w "${PWD}" ]; then 
-    local PROMPT_PWD="${LIGHT_BLUE}$(get_prompt_workingdir)${COLOR_NONE}"
-  else                                 
-    local PROMPT_PWD="${LIGHT_RED}$(get_prompt_workingdir)${COLOR_NONE}"
-  fi
-  
+  # Set the PROMPT_END variable. We do this first so we don't lose the 
+  # return value of the last command.
+  local PROMPT_END=$(get_prompt_end_symbol $?)
+
   # Set the bash prompt variable.
-  PS1="${USER}@\h: ${PROMPT_PWD} ${SCM}${END} "
+  PS1="${PROMPT_USER}@\h:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_SCM}${PROMPT_END} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
