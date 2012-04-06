@@ -1,7 +1,12 @@
-# Git info in prompt
-# http://henrik.nyh.se/2008/12/git-dirty-prompt
-# http://www.simplisticcomplexity.com/2008/03/13/show-your-git-branch-name-in-your-prompt/
-# Based on https://gist.github.com/31967
+# Show extra colored information in bash prompt:
+#  * User rights and session type
+#  * Information about background/stopped/screened processes
+#  * Current dir (no more than 25% of line) and is it writable
+#  * SCM (Git and SVN) branch and status info
+#
+# Based on:
+#  * https://gist.github.com/31967
+#  * http://www.debian-administration.org/articles/205
 
 # The various escape codes that we can use to color our prompt.
         RED="\[\033[0;31m\]"
@@ -10,9 +15,11 @@
        BLUE="\[\033[0;34m\]"
   LIGHT_RED="\[\033[1;31m\]"
 LIGHT_GREEN="\[\033[1;32m\]"
+ LIGHT_BLUE="\[\033[1;34m\]"
+ LIGHT_CYAN="\[\033[1;36m\]"
       WHITE="\[\033[1;37m\]"
  LIGHT_GRAY="\[\033[0;37m\]"
- COLOR_NONE="\[\e[0m\]"
+ COLOR_NONE="\[\033[0m\]"
 
 # Detect whether the current directory is a git repository.
 function is_git_repository {
@@ -68,22 +75,6 @@ function is_svn_repository {
   test -d .svn
 }
 
-# Return the prompt symbol to use, colorized based on the return value of the
-# previous command.
-function get_prompt_end_symbol {
-  if [[ ${EUID} == 0 ]] ; then
-    symbol="#";
-  else 
-    symbol="\$"
-  fi
-
-  if test $1 -eq 0 ; then
-      echo "${symbol}"
-  else
-      echo "${RED}${symbol}${COLOR_NONE}"
-  fi
-}
-
 # Determine the branch information for this subversion repository. No support
 # for svn status, since that needs to hit the remote repository.
 function get_prompt_svn {
@@ -101,6 +92,39 @@ function get_prompt_svn {
 
   # Set the final branch string.
   echo "(${branch})"
+}
+
+# Trim working dir to 1/4 the screen width
+function get_prompt_workingdir {
+  local pwdmaxlen=$(($COLUMNS/4))
+  local trunc_symbol="..."
+  if [[ $PWD == $HOME* ]]; then
+    newPWD="~${PWD#$HOME}" 
+  else
+    newPWD=${PWD}
+  fi
+  if [ ${#newPWD} -gt $pwdmaxlen ]; then
+    local pwdoffset=$(( ${#newPWD} - $pwdmaxlen + 3 ))
+    newPWD="${trunc_symbol}${newPWD:$pwdoffset:$pwdmaxlen}"
+  fi
+  
+  echo $newPWD
+}
+
+# Return the prompt symbol to use, colorized based on the return value of the
+# previous command.
+function get_prompt_end_symbol {
+  if [[ ${EUID} == 0 ]] ; then
+    symbol="#";
+  else 
+    symbol="\$"
+  fi
+
+  if test $1 -eq 0 ; then
+      echo "${symbol}"
+  else
+      echo "${RED}${symbol}${COLOR_NONE}"
+  fi
 }
 
 # Set the full bash prompt.
@@ -125,8 +149,15 @@ function set_bash_prompt {
     local USER="\u"
   fi
   
+  # Set the PROMPT_PWD variable
+  if [ -w "${PWD}" ]; then 
+    local PROMPT_PWD="${LIGHT_BLUE}$(get_prompt_workingdir)${COLOR_NONE}"
+  else                                 
+    local PROMPT_PWD="${LIGHT_RED}$(get_prompt_workingdir)${COLOR_NONE}"
+  fi
+  
   # Set the bash prompt variable.
-  PS1="${USER}@\h: \W ${SCM}${END} "
+  PS1="${USER}@\h: ${PROMPT_PWD} ${SCM}${END} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
