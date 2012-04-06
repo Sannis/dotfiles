@@ -22,3 +22,12 @@ HISTSIZE=1000000
 HISTCONTROL=ignoredups
 #shopt -s histappend
 
+# Default editor
+if [ -f /usr/bin/mcedit ]; then
+	export EDITOR=/usr/bin/mcedit
+else
+	export EDITOR=/usr/bin/nano
+fi
+
+# Java JDK dir for PHPStorm
+export WEBIDE_JDK=/usr/lib/jvm/java-1.6.0-sun-1.6.0/jre
