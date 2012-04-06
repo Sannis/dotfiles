@@ -1,0 +1,35 @@
+# Git info in prompt
+# http://henrik.nyh.se/2008/12/git-dirty-prompt
+# http://www.simplisticcomplexity.com/2008/03/13/show-your-git-branch-name-in-your-prompt/
+# TODO: Add https://gist.github.com/31967 (arrows and last command result status)
+function parse_git_branch_name {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
+}
+function parse_git_push_queue {
+  git log --no-color --oneline origin/$(parse_git_branch_name)...$(parse_git_branch_name) 2> /dev/null | wc -l | grep -v -P "^0$" | sed -e "s/\(.*\)/\(+\1\)/"
+}
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+function git_prompt_suffix {
+  parse_git_branch_name | sed -e "s/\(.*\)/\(\1$(parse_git_dirty)$(parse_git_push_queue)\)/"
+}
+
+# SVN info in prompt
+# http://hocuspokus.net/2009/07/add-git-and-svn-branch-to-bash-prompt/
+# TODO: Add https://sites.google.com/site/demonkutya/testpage/addfancysvnbranchstatustoyourcommandprompt
+function parse_svn_url() {
+  svn info 2>/dev/null | sed -ne 's#^URL: ##p'
+}
+function parse_svn_repository_root() {
+  svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
+}
+function parse_svn_branch_name() {
+  parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g'
+}
+function svn_prompt_suffix() {
+  parse_svn_branch_name | awk '{print "("$1")" }'
+}
+
+# Combine prompt
+export PS1='\u@\h: \W $(git_prompt_suffix)$(svn_prompt_suffix)> '
