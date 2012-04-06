@@ -59,16 +59,16 @@ function get_prompt_jobs {
 
 # Trim working dir to 1/4 the screen width
 function get_prompt_workingdir {
-  local pwdmaxlen=$(($COLUMNS/4))
+  local maxlen=$(($COLUMNS/4))
   local trunc_symbol="..."
   if [[ $PWD == $HOME* ]]; then
     newPWD="~${PWD#$HOME}" 
   else
     newPWD=${PWD}
   fi
-  if [[ ${#newPWD} -gt $pwdmaxlen ]]; then
-    local pwdoffset=$(( ${#newPWD} - $pwdmaxlen + 3 ))
-    newPWD="${trunc_symbol}${newPWD:$pwdoffset:$pwdmaxlen}"
+  if [[ ${#newPWD} -gt $maxlen ]]; then
+    local offset=$(( ${#newPWD} - $maxlen + 3 ))
+    newPWD="${trunc_symbol}${newPWD:$offset:$maxlen}"
   fi
 
   echo $newPWD
@@ -177,10 +177,12 @@ function set_bash_prompt {
   local PROMPT_JOBS=$(get_prompt_jobs)
 
   # Set the PROMPT_PWD variable
-  if [ -w "${PWD}" ]; then 
+  if [ -w "${PWD}" ]; then
     local PROMPT_PWD="${LIGHT_BLUE}$(get_prompt_workingdir)${COLOR_NONE}"
+    local PROMPT_PWD_SHORT="${LIGHT_BLUE}\W${COLOR_NONE}"
   else
     local PROMPT_PWD="${LIGHT_RED}$(get_prompt_workingdir)${COLOR_NONE}"
+    local PROMPT_PWD_SHORT="${LIGHT_RED}\W${COLOR_NONE}"
   fi
 
   # Set the PROMPT_SCM variable (git/svn branch name and status)
@@ -198,6 +200,20 @@ function set_bash_prompt {
 
   # Set the bash prompt variable.
   PS1="${PROMPT_USER}@\h:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_SCM}${PROMPT_END} "
+  PS1FORTEST=$(echo $PS1 | sed -r 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
+
+  local ps1maxlen=$(($COLUMNS/2))
+
+  # If very long: do not show SCM status
+  if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
+    PS1="${PROMPT_USER}@\h:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_END} "
+    PS1FORTEST=$(echo $PS1 | sed -r 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
+  fi
+
+  # If still long: do not show gull path and SCM status
+  if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
+    PS1="${PROMPT_USER}@\h:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_END} "
+  fi
 }
 
 # Tell bash to execute this function just before displaying its prompt.
