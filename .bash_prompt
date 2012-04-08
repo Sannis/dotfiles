@@ -120,10 +120,6 @@ function get_prompt_git {
   echo "${state}(${branch}${sync_action})${COLOR_NONE}"
 }
 
-#function parse_git_push_queue {
-#  git log --no-color --oneline origin/$(parse_git_branch_name)...$(parse_git_branch_name) 2> /dev/null | wc -l | grep -v -P "^0$" | sed -e "s/\(.*\)/\(+\1\)/"
-#}
-
 # Detect whether the current directory is a subversion repository.
 function is_svn_repository {
   test -d .svn
@@ -168,9 +164,9 @@ function get_prompt_end_symbol {
 function set_bash_prompt {
   # Set the PROMPT_USER variable
   if [[ ${EUID} == 0 ]] ; then
-    local PROMPT_USER="${RED}\u${COLOR_NONE}"
+    local PROMPT_USER_HOST="${RED}\u@\h${COLOR_NONE}"
   else
-    local PROMPT_USER="\u"
+    local PROMPT_USER_HOST="${GREEN}\u@\h${COLOR_NONE}"
   fi
 
   # Set the PROMPT_JOBS variable
@@ -199,20 +195,20 @@ function set_bash_prompt {
   local PROMPT_END=$(get_prompt_end_symbol $?)
 
   # Set the bash prompt variable.
-  PS1="${PROMPT_USER}@\h:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_SCM}${PROMPT_END} "
+  PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_SCM}${PROMPT_END} "
   PS1FORTEST=$(echo $PS1 | sed -r 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
 
   local ps1maxlen=$(($COLUMNS/2))
 
   # If very long: do not show SCM status
   if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
-    PS1="${PROMPT_USER}@\h:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_END} "
+    PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_END} "
     PS1FORTEST=$(echo $PS1 | sed -r 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
   fi
 
   # If still long: do not show gull path and SCM status
   if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
-    PS1="${PROMPT_USER}@\h:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_END} "
+    PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_END} "
   fi
 }
 
