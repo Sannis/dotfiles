@@ -200,13 +200,13 @@ function set_bash_prompt {
 
   local ps1maxlen=$(($COLUMNS/2))
 
-  # If very long: do not show SCM status
+  # If very long: do not show full path
   if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
-    PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_END} "
+    PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_SCM}${PROMPT_END} "
     PS1FORTEST=$(echo $PS1 | sed -r 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
   fi
 
-  # If still long: do not show gull path and SCM status
+  # If still long: do not show full path and SCM status
   if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
     PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_END} "
   fi
