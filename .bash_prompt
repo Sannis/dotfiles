@@ -98,6 +98,10 @@ function get_prompt_git {
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
   fi
+  detached_pattern="^# Not currently on any branch."
+  if [[ ${git_status} =~ ${detached_pattern} ]]; then
+    branch="detached HEAD"
+  fi
 
   # Get the difference with remote tracking branch.
   sync_action=""
