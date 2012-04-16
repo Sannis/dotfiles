@@ -1,0 +1,19 @@
+# Darwin (OS X) .bashrc
+
+# Mac ports bin
+#==============
+export PATH=$PATH:/opt/local/bin/
+
+# MySQL bin
+#==========
+export PATH=$PATH:/usr/local/mysql-5.5.17-osx10.6-x86_64/bin/
+
+# MySQL lib
+#==========
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql-5.5.17-osx10.6-x86_64/lib/
+
+# Specific aliases
+#=================
+
+alias ll='/opt/local/bin/gls -l --color'
+alias la='/opt/local/bin/gls -la --color'
