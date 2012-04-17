@@ -1,16 +1,15 @@
 # Darwin (OS X) .bashrc
 
-# Mac ports bin
-#==============
-export PATH=$PATH:/opt/local/bin/
+# Mac ports additions
+#====================
+export PATH=/opt/local/bin/:/opt/local/sbin/:$PATH
 
-# MySQL bin
-#==========
-export PATH=$PATH:/usr/local/mysql-5.5.17-osx10.6-x86_64/bin/
+export PATH=$PATH:/usr/local/mysql/bin
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
 
-# MySQL lib
-#==========
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql-5.5.17-osx10.6-x86_64/lib/
+if [ -f /opt/local/etc/bash_completion ]; then
+	. /opt/local/etc/bash_completion
+fi
 
 # Specific aliases
 #=================

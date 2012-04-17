@@ -33,8 +33,8 @@ export WEBIDE_JDK=/usr/lib/jvm/java-1.6.0-sun-1.6.0/jre
 
 # OS specific settings
 if [[ $OSTYPE == darwin* ]]; then
-  if [ -f ./darwin/bashrc ]; then
-    . ./.dotfiles/darwin/bashrc
+  if [ -f ~/.dotfiles/darwin/bashrc ]; then
+    . ~/.dotfiles/darwin/bashrc
   fi
 fi
 
