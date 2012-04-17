@@ -43,4 +43,4 @@ export HISTFILESIZE=1000000000
 export HISTSIZE=1000000
 export HISTCONTROL=ignoreboth:erasedups   # no duplicate entries
 shopt -s histappend                       # append history file
-export PROMPT_COMMAND="history -a"        # update histfile after every command
+export PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"        # update histfile after every command
