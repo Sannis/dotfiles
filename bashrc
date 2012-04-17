@@ -8,14 +8,14 @@ fi
 
 # User specific aliases
 #======================
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+if [ -f ~/.dotfiles/bash/aliases ]; then
+  . ~/.dotfiles/bash/aliases
 fi
 
 # User specific prompt
 #=====================
-if [ -f ~/.bash_prompt ]; then
-  . ~/.bash_prompt
+if [ -f ~/.dotfiles/bash/prompt ]; then
+  . ~/.dotfiles/bash/prompt
 fi
 
 # Common settings
@@ -34,7 +34,7 @@ export WEBIDE_JDK=/usr/lib/jvm/java-1.6.0-sun-1.6.0/jre
 # OS specific settings
 if [[ $OSTYPE == darwin* ]]; then
   if [ -f ./darwin/bashrc ]; then
-    . ./darwin/bashrc
+    . ./.dotfiles/darwin/bashrc
   fi
 fi
 
