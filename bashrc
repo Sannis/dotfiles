@@ -21,6 +21,9 @@ fi
 # Common settings
 #================
 
+# Language
+export LANG="en_US.UTF-8"
+
 # Default editor
 if [ -f /usr/bin/mcedit ]; then
   export EDITOR=/usr/bin/mcedit
