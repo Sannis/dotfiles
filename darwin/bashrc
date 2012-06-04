@@ -7,6 +7,8 @@ export PATH=/opt/local/bin/:/opt/local/sbin/:$PATH
 export PATH=$PATH:/usr/local/mysql/bin
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/mysql/lib
 
+export PATH=$PATH:/Applications/QGLE.app/Contents/bin
+
 if [ -f /opt/local/etc/bash_completion ]; then
 	. /opt/local/etc/bash_completion
 fi
