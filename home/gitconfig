@@ -3,7 +3,7 @@
         diff = auto
         status = auto
 [alias]
-	aa = add .
+        aa = add .
         br = branch
         st = status
         ci = commit
@@ -19,8 +19,7 @@
         grc = log --decorate --graph --full-history --all --color --pretty=tformat:%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%x1b[33m(%an)%x1b[0m
 [merge]
         verbosity = 3
-[user]
-	name = Oleg Efimov
-	email = efimovov@gmail.com
 [core]
-	excludesfile = /Users/sannis/.gitignore
+        excludesfile = ~/.gitignore
+[include]
+        path = ~/.gitconfig_local
