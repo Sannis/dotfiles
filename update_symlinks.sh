@@ -6,7 +6,7 @@
 #      ORIGINAL: https://github.com/kusnier/dotfiles/blob/master/update_symlinks.sh
 #==================================================================================
 
-set -o nounset                              # Treat unset variables as an error
+set -o nounset # Treat unset variables as an error
 
 function realpath() {
   # Get absolute path of the script (because of different readlink in macos)

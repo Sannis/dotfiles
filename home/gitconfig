@@ -3,7 +3,7 @@
         diff = auto
         status = auto
 [alias]
-	aa = add .
+        aa = add .
         br = branch
 	st = status --short
         ci = commit
@@ -21,8 +21,9 @@
 	last = log -1 HEAD
 [merge]
         verbosity = 3
-[user]
-	name = Oleg Efimov
-	email = efimovov@gmail.com
 [core]
-	excludesfile = /Users/sannis/.gitignore
+        excludesfile = ~/.gitignore
+[include]
+        path = ~/.gitconfig_local
+[apply]
+	whitespace = nowarn
