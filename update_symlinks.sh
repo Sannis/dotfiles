@@ -24,7 +24,7 @@ dotfilespath="$(git rev-parse --show-toplevel)" || exit
 for dotfile in ${dotfilespath}/home/* ; do
   echo $dotfile
   base=`basename $dotfile`
-  rm -ir ~/.$base
+  rm -if ~/.$base
   ln -v -s $dotfile ~/.$base
 done
 
