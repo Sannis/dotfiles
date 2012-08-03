@@ -15,8 +15,7 @@
         pl = pull --verbose
         rh = reset --hard
         l = log --decorate
-        gr = log --decorate --graph --full-history --all --pretty=format:%h%x09%d%x20%s
-        grc = log --decorate --graph --full-history --all --color --pretty=tformat:%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%x1b[33m(%an)%x1b[0m
+        gr = log --decorate --graph --full-history --all --color --pretty=tformat:%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%x1b[33m(%an)%x1b[0m
 	unstage = reset HEAD --
 	last = !git --no-pager log -1 HEAD
 [merge]
