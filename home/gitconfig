@@ -26,3 +26,5 @@
         path = ~/.gitconfig_local
 [apply]
 	whitespace = nowarn
+[push]
+	default = simple
