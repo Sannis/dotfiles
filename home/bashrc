@@ -39,9 +39,6 @@ if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
   trap "kill $SSH_AGENT_PID" 0
 fi
 
-# Java JDK dir for PHPStorm
-export WEBIDE_JDK=/usr/lib/jvm/java-1.6.0-sun-1.6.0/jre
-
 # OS specific settings
 if [[ $OSTYPE == darwin* ]]; then
   if [ -f ~/.dotfiles/darwin/bashrc ]; then
