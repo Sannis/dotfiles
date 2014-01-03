@@ -31,16 +31,16 @@ else
   export EDITOR=/usr/bin/nano
 fi
 
-# SSH agent
-SSHAGENT=`which ssh-agent`
-SSHAGENTARGS="-s"
-if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
-  eval `$SSHAGENT $SSHAGENTARGS`
-  trap "kill $SSH_AGENT_PID" 0
-fi
+# Fix ANSI colors in less/more output
+export LESS="-erX"
 
-# Java JDK dir for PHPStorm
-export WEBIDE_JDK=/usr/lib/jvm/java-1.6.0-sun-1.6.0/jre
+# SSH agent
+#SSHAGENT=`which ssh-agent`
+#SSHAGENTARGS="-s"
+#if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
+#  eval `$SSHAGENT $SSHAGENTARGS`
+#  trap "kill $SSH_AGENT_PID" 0
+#fi
 
 # OS specific settings
 if [[ $OSTYPE == darwin* ]]; then
