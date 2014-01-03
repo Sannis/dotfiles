@@ -6,6 +6,12 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+# User specific $PATH modifications
+#==================================
+if [ -f ~/.dotfiles/bash/path ]; then
+  . ~/.dotfiles/bash/path
+fi
+
 # User specific aliases
 #======================
 if [ -f ~/.dotfiles/bash/aliases ]; then
