@@ -9,6 +9,13 @@
 #  * https://gist.github.com/31967
 #  * http://www.debian-administration.org/articles/205
 
+# OS X compatibility
+if [[ $OSTYPE == darwin* ]]; then
+  SED_REGEX="sed -E"
+else
+  SED_REGEX="sed -r"
+fi
+
 # The various escape codes that we can use to color our prompt.
         RED="\[\033[0;31m\]"
      YELLOW="\[\033[0;33m\]"
@@ -200,14 +207,14 @@ function set_bash_prompt {
 
   # Set the bash prompt variable.
   PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD} ${PROMPT_SCM}${PROMPT_END} "
-  PS1FORTEST=$(echo $PS1 | sed -r 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
+  PS1FORTEST=$(echo $PS1 | $SED_REGEX 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
 
   local ps1maxlen=$(($COLUMNS/2))
 
   # If very long: do not show full path
   if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
     PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_SCM}${PROMPT_END} "
-    PS1FORTEST=$(echo $PS1 | sed -r 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
+    PS1FORTEST=$(echo $PS1 | $SED_REGEX 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
   fi
 
   # If still long: do not show full path and SCM status
