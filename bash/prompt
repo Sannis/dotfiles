@@ -100,21 +100,21 @@ function get_prompt_git {
 
   # Set color based on clean/staged/dirty.
   if [[ ${git_status} =~ "?? " ]]; then
-    state="${RED}"
+    state_color="${RED}"
   elif [[ ${git_status} =~ "^[ ]*[AMD]" ]]; then
-    state="${YELLOW}"
+    state_color="${YELLOW}"
   else
-    state="${GREEN}"
+    state_color="${GREEN}"
   fi
 
   # Get the name of the branch.
   branch_pattern="^## ([^${IFS}]*)(\.\.\..*)?"
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
-    branch=${BASH_REMATCH[1]}
+    branch_name=${BASH_REMATCH[1]}
   fi
   detached_pattern="^# Not currently on any branch."
   if [[ ${git_status} =~ ${detached_pattern} ]]; then
-    branch="detached HEAD"
+    branch_name="detached HEAD"
   fi
 
   # Get the difference with remote tracking branch.
@@ -135,7 +135,7 @@ function get_prompt_git {
   fi
 
   # Combine the final branch string.
-  echo "(± ${state}${branch}${COLOR_NONE}${sync_action})"
+  echo "(± ${state_color}${branch_name}${COLOR_NONE}${sync_action})"
 }
 
 # Detect whether the current directory is a subversion repository.
