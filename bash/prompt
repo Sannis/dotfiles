@@ -167,7 +167,7 @@ function get_prompt_svn {
 # Return the prompt symbol to use, colorized based on the return value of the
 # previous command.
 function get_prompt_end_symbol {
-  if [[ ${EUID} == 0 ]] ; then
+  if [[ ${EUID} == 0 ]]; then
     symbol="#";
   else 
     symbol="\$"
@@ -183,7 +183,7 @@ function get_prompt_end_symbol {
 # Set the full bash prompt.
 function set_bash_prompt {
   # Set the PROMPT_USER variable
-  if [[ ${EUID} == 0 ]] ; then
+  if [[ ${EUID} == 0 ]]; then
     local PROMPT_USER_HOST="${RED}\u@\h${COLOR_NONE}"
   else
     local PROMPT_USER_HOST="${GREEN}\u@\h${COLOR_NONE}"
