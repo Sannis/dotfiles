@@ -89,7 +89,7 @@ function is_git_repository {
 # Determine the branch/state information for this git repository.
 function get_prompt_git {
   # Capture the output of the "git status" command.
-  git_status=$(git status --porcelain --branch 2> /dev/null)
+  git_status=$(git status --porcelain 2> /dev/null)
 
   # Output example:
   #
@@ -98,10 +98,8 @@ function get_prompt_git {
   #   M phpunit.xml.dist
   #  ?? 2
 
-  git_status_lines=$(echo -n ${git_status} | wc -l)
-
   # Set color based on clean/staged/dirty.
-  if [[ ${git_status_lines} -eq 1 ]]; then
+  if [[ -z ${git_status} ]]; then
     state_color="${GREEN}"
   elif [[ ${git_status} =~ "?? " ]]; then
     state_color="${RED}"
