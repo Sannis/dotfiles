@@ -120,20 +120,16 @@ function get_prompt_git {
   fi
 
   # Get the difference with remote tracking branch.
-  sync_action=""
-  ahead_pattern="# Your branch is ahead of .* by ([^ ]*) commit"
-  if [[ ${git_status} =~ ${ahead_pattern} ]]; then
-    sync_action=" ↑${BASH_REMATCH[1]}"
+  ahead=$(git rev-list origin..HEAD --count)
+  behind=$(git rev-list HEAD..origin --count)
+  if [[ ${ahead} -gt 0 ]] && [[ ${behind} -eq 0 ]]; then
+    sync_action=" ↑${ahead}"
+  elif [[ ${ahead} -eq 0 ]] && [[ ${behind} -gt 0 ]]; then
+    sync_action=" ↓${behind}"
+  elif [[ ${ahead} -gt 0 ]] && [[ ${behind} -gt 0 ]]; then
+    sync_action=" ↑${ahead} ↓${behind}"
   else
-    behind_pattern="# Your branch is behind .* by ([^ ]*) commit"
-    if [[ ${git_status} =~ ${behind_pattern} ]]; then
-      sync_action=" ↓${BASH_REMATCH[1]}"
-    else
-      diverge_pattern="# Your branch and .* have diverged .* have ([^ ]*) and ([^ ]*) different commit"
-      if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-        sync_action=" ↑${BASH_REMATCH[1]} ↓${BASH_REMATCH[2]}"
-      fi
-    fi
+    sync_action=""
   fi
 
   # Combine the final branch string.
