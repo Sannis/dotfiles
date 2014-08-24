@@ -98,13 +98,15 @@ function get_prompt_git {
   #   M phpunit.xml.dist
   #  ?? 2
 
+  git_status_lines=$(echo -n ${git_status} | wc -l)
+
   # Set color based on clean/staged/dirty.
-  if [[ ${git_status} =~ "?? " ]]; then
-    state_color="${RED}"
-  elif [[ ${git_status} =~ "^[ ]*[AMD]" ]]; then
-    state_color="${YELLOW}"
-  else
+  if [[ ${git_status_lines} -eq 1 ]]; then
     state_color="${GREEN}"
+  elif [[ ${git_status} =~ "?? " ]]; then
+    state_color="${RED}"
+  else
+    state_color="${YELLOW}"
   fi
 
   # Get the name of the branch.
