@@ -114,8 +114,8 @@ function get_prompt_git {
   fi
 
   # Get the difference with remote tracking branch.
-  ahead=$(git rev-list origin..HEAD --count)
-  behind=$(git rev-list HEAD..origin --count)
+  ahead=$(git rev-list @{u}..HEAD --count)
+  behind=$(git rev-list HEAD..@{u} --count)
   if [[ ${ahead} -gt 0 ]] && [[ ${behind} -eq 0 ]]; then
     sync_action=" ↑${ahead}"
   elif [[ ${ahead} -eq 0 ]] && [[ ${behind} -gt 0 ]]; then
