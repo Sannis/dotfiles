@@ -7,4 +7,8 @@ add_to_path ()
     export PATH=${1}:$PATH
 }
 
+# My home local
 add_to_path ~/local/bin
+
+# Go install root
+add_to_path /local/go/bin
