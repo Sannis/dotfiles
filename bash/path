@@ -9,6 +9,3 @@ add_to_path ()
 
 # My home local
 add_to_path ~/local/bin
-
-# Go install root
-add_to_path /local/go/bin

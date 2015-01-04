@@ -1,0 +1,12 @@
+# Go root
+export GOROOT=/usr/local/go
+
+# Go root binaries
+add_to_path $GOROOT/bin
+
+# Go path
+export GOPATH=~/local/go
+
+# Go path binaries
+add_to_path $GOPATH/bin
+
