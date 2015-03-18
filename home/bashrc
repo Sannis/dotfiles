@@ -24,6 +24,12 @@ if [ -f ~/.dotfiles/bash/prompt ]; then
   . ~/.dotfiles/bash/prompt
 fi
 
+# Go specific options
+#====================
+if [ -f ~/.dotfiles/bash/go ]; then
+  . ~/.dotfiles/bash/go
+fi
+
 # Common settings
 #================
 

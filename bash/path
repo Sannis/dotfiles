@@ -7,4 +7,5 @@ add_to_path ()
     export PATH=${1}:$PATH
 }
 
+# My home local
 add_to_path ~/local/bin
