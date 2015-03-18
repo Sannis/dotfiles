@@ -28,3 +28,5 @@
 	whitespace = nowarn
 [push]
 	default = simple
+[gc]
+	auto = 1000
