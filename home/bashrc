@@ -69,5 +69,5 @@ shopt -s histappend                       # append history file
 export PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"        # update histfile after every command
 
 # For PHP debugging
-export PHP_IDE_CONFIG="serverName=$USER"
+export PHP_IDE_CONFIG="serverName=$USER.$HOST"
 
