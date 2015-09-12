@@ -228,6 +228,9 @@ function set_bash_prompt {
   if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
     PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_END} "
   fi
+
+  # Set terminal title
+  echo -ne "\033]0;${USER}@${HOSTNAME}\007"
 }
 
 # Tell bash to execute this function just before displaying its prompt.
