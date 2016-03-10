@@ -224,9 +224,14 @@ function set_bash_prompt {
     PS1FORTEST=$(echo $PS1 | $SED_REGEX 's/\\\[\\033\[[0-9]+;[0-9]+m\\\]//g')
   fi
 
-  # If still long: do not show full path and SCM status
+  # If still long: do not show full path and full SCM branch name status
   if [[ ${#PS1FORTEST} -gt $ps1maxlen ]]; then
-    PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_END} "
+    PROMPT_SCM_SHORT_1=$(echo $PROMPT_SCM | $SED_REGEX 's/\((.*) (\\\[\\033\[[0-9]+;[0-9]+m\\\])*([[:alpha:]]*-[[:digit:]]*).* (.*)\)/\1 \2\3/g')
+    PROMPT_SCM_SHORT_2=$(echo $PROMPT_SCM | $SED_REGEX 's/\((.*) (\\\[\\033\[[0-9]+;[0-9]+m\\\])*([[:alpha:]]*-[[:digit:]]*).* (.*)\)/\4/g')
+
+    PROMPT_SCM_SHORT="(${PROMPT_SCM_SHORT_1}...${COLOR_NONE} ${PROMPT_SCM_SHORT_2})"
+
+    PS1="${PROMPT_USER_HOST}:${PROMPT_JOBS} ${PROMPT_PWD_SHORT} ${PROMPT_SCM_SHORT}${PROMPT_END} "
   fi
 
   # Set terminal title
