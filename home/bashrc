@@ -71,3 +71,5 @@ export PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"        # update histfile af
 # For PHP debugging
 export PHP_IDE_CONFIG="serverName=$USER.$HOST"
 
+# For local python
+export PYTHONPATH="~/local/lib/python2.7/site-packages/"

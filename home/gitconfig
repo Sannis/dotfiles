@@ -22,11 +22,11 @@
 	verbosity = 5
 [core]
 	excludesfile = ~/.gitignore
-[include]
-	path = ~/.gitconfig_local
 [apply]
 	whitespace = nowarn
 [push]
 	default = simple
 [gc]
 	auto = 0
+[include]
+	path = ~/.gitconfig_local
