@@ -5,7 +5,7 @@ export GOROOT=~/local/go
 add_to_path $GOROOT/bin
 
 # Go path
-export GOPATH=~/local/go
+export GOPATH=~/local/go-packages
 
 # Go path binaries
 add_to_path $GOPATH/bin
