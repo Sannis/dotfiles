@@ -9,7 +9,7 @@ du -sh .
 git remote prune origin
 du -sh .
 
-git reflog expire --expire-unreachable refs/heads/master
+git reflog expire --expire-unreachable=now refs/heads/master
 du -sh .
 
 git fsck --unreachable
