@@ -1,10 +1,12 @@
 # Go root
-export GOROOT=~/local/go
+if [[ $OSTYPE == darwin* ]]; then
+    export GOROOT=/usr/local/go
+else
+    export GOROOT=~/local/go
+fi
 
 # Go root binaries
 add_to_path $GOROOT/bin
-
-add_to_path ~/local/go
 
 # Go path
 export GOPATH=~/local/go-packages
