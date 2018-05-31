@@ -9,7 +9,7 @@ fi
 add_to_path $GOROOT/bin
 
 # Go path
-export GOPATH=~/local/go-packages
+export GOPATH=~/Documents/Go
 
 # Go path binaries
 add_to_path $GOPATH/bin
