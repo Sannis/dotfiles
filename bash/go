@@ -1,16 +1,19 @@
+# Go binaries
+add_to_path $HOME/go/bin
+
 # Go root
-if [[ $OSTYPE == darwin* ]]; then
-    export GOROOT=/usr/local/go
-else
-    export GOROOT=~/local/go
-fi
+#if [[ $OSTYPE == darwin* ]]; then
+#    export GOROOT=/usr/local/go
+#else
+#    export GOROOT=~/local/go
+#fi
 
 # Go root binaries
-add_to_path $GOROOT/bin
+#add_to_path $GOROOT/bin
 
 # Go path
-export GOPATH=~/Documents/Go
+#export GOPATH=~/Documents/Go
 
 # Go path binaries
-add_to_path $GOPATH/bin
+#add_to_path $GOPATH/bin
 
