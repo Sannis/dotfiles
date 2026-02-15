@@ -68,12 +68,32 @@ Global gitignore rules applied to all repositories. Currently ignores `.claude/s
 
 yadm stores its bare repo at `~/.local/share/yadm/repo.git`. Dotfiles are tracked in-place in the home directory — no symlinks needed.
 
-## Common yadm commands
+## Adding files to tracking
+
+To start tracking a new dotfile:
 
 ```bash
-yadm status          # check status
-yadm add <file>      # track a new dotfile
-yadm commit -m "msg" # commit changes
-yadm push            # push to remote
-yadm list            # list tracked files
+yadm add ~/.vimrc
+yadm commit -m "Add .vimrc"
+yadm push
+```
+
+Files in subdirectories work the same way:
+
+```bash
+yadm add ~/.config/starship.toml
+yadm commit -m "Add starship config"
+yadm push
+```
+
+To see what's currently tracked:
+
+```bash
+yadm list -a
+```
+
+To check for uncommitted changes in tracked files:
+
+```bash
+yadm status
 ```
