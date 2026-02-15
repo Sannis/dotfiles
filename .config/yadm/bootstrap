@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+REPO="$(yadm introspect repo)"
+
+# Enable sparse checkout to keep repo-only files (README.md, setup.sh)
+# out of the home directory
+yadm sparse-checkout init --no-cone
+cat > "$REPO/info/sparse-checkout" <<'SPARSE'
+/*
+!README.md
+!setup.sh
+SPARSE
+yadm read-tree -mu HEAD
