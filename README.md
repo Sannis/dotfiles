@@ -19,7 +19,7 @@ yadm clone git@github.com:Sannis/dotfiles.git
 
 ### Shell: `.zprofile` vs `.zshrc`
 
-zsh loads these files at different stages:
+`zsh` loads these files at different stages:
 
 - **`.zprofile`** runs once per **login shell** (e.g. when you open a new terminal window or SSH in). This is the right place for environment setup that only needs to happen once and should be inherited by child processes: Homebrew shell environment (`brew shellenv`) and OrbStack CLI integration.
 
@@ -29,25 +29,7 @@ In practice on macOS, Terminal.app and iTerm2 open login shells, so both files r
 
 ### Git: `.gitconfig`
 
-User identity and a set of short aliases for everyday git commands:
-
-| Alias | Command |
-|-------|---------|
-| `aa` | `add .` |
-| `br` | `branch` |
-| `st` | `status --short` |
-| `ci` | `commit` |
-| `df` | `diff` |
-| `co` | `checkout` |
-| `p` | `push --verbose` |
-| `pf` | `push --verbose --force` |
-| `pt` | `push --verbose --tags` |
-| `pl` | `pull --verbose` |
-| `rh` | `reset --hard` |
-| `l` | `log --decorate` |
-| `gr` | colorized graph log with author info |
-| `unstage` | `reset HEAD --` |
-| `last` | show the last commit |
+User identity and a set of short aliases for everyday git commands.
 
 ### SSH: `.ssh/config`
 

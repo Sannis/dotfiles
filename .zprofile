@@ -1,4 +1,4 @@
-
+# Added by Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 
 # Added by OrbStack: command-line tools and integration
