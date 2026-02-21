@@ -8,13 +8,6 @@ Dotfiles managed with [yadm](https://yadm.io).
 curl -fsSL https://raw.githubusercontent.com/Sannis/dotfiles/master/setup.sh | bash
 ```
 
-Or clone the repo first and run locally:
-
-```bash
-git clone git@github.com:Sannis/dotfiles.git /tmp/dotfiles
-/tmp/dotfiles/setup.sh
-```
-
 ## Manual setup
 
 ```bash
