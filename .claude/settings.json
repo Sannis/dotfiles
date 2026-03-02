@@ -1,12 +1,16 @@
 {
   "permissions": {
     "allow": [
+      "Bash(git status:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)",
       "Bash(git pull:*)",
-      "Bash(yadm pull:*)",
-      "Bash(yadm status:*)"
+      "Bash(yadm status:*)",
+      "Bash(yadm diff:*)",
+      "Bash(yadm add:*)",
+      "Bash(yadm commit:*)",
+      "Bash(yadm push:*)",
+      "Bash(yadm pull:*)"
     ]
   }
 }
