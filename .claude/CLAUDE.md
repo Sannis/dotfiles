@@ -1,6 +1,7 @@
 ## Git
 
-Run `git` without `-C` flag when already inside the repository.
+- Run `git` without `-C` flag when already inside the repository.
+- Do not use `$()` command substitution in commit messages — pass the message directly to `-m`.
 
 ## Style
 
