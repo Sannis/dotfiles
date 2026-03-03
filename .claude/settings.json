@@ -6,6 +6,7 @@
       "Bash(git commit:*)",
       "Bash(git pull:*)",
       "Bash(yadm status:*)",
+      "Bash(yadm sparse-checkout list:*)",
       "Bash(yadm diff:*)",
       "Bash(yadm add:*)",
       "Bash(yadm commit:*)",
