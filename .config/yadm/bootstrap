@@ -3,12 +3,13 @@ set -e
 
 REPO="$(yadm introspect repo)"
 
-# Enable sparse checkout to keep repo-only files (README.md, setup.sh)
+# Enable sparse checkout to keep repo-only files (README.md, setup.sh, CLAUDE.md)
 # out of the home directory
 yadm sparse-checkout init --no-cone
 cat > "$REPO/info/sparse-checkout" <<'SPARSE'
 /*
 !README.md
 !setup.sh
+!CLAUDE.md
 SPARSE
 yadm read-tree -mu HEAD
