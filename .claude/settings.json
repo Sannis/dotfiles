@@ -3,7 +3,12 @@
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "hooks": [{ "type": "command", "command": "~/.claude/hooks/gcloud-permissions.sh" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/gcloud-permissions.sh"
+          }
+        ]
       }
     ]
   },
@@ -14,7 +19,7 @@
       "Bash(git commit:*)",
       "Bash(git pull:*)",
       "Bash(yadm status:*)",
-      "Bash(yadm sparse-checkout list:*)",
+      "Bash(yadm sparse-checkout:*:*)",
       "Bash(yadm diff:*)",
       "Bash(yadm add:*)",
       "Bash(yadm commit:*)",
