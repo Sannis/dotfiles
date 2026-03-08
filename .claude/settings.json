@@ -1,4 +1,12 @@
 {
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "~/.claude/hooks/gcloud-permissions.sh" }]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(git status:*)",
