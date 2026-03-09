@@ -1,3 +1,5 @@
+# Global Claude Instructions
+
 ## Git Operations
 
 - Run `git` without `-C` flag and without `cd` when already inside the repository.

@@ -1,3 +1,5 @@
+# Claude Instructions: Dotfiles
+
 ## Overview
 
 - This folder is a cloned copy of the dotfiles repo.
