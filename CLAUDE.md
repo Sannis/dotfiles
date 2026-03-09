@@ -25,7 +25,8 @@ When there are uncommitted changes in the cloned repo, use this workflow instead
 4. For dotfiles — check if each is also dirty in yadm (`yadm status`).
 5. If the same dotfile is modified in both — stop and highlight the conflict for the user to decide.
 6. If no conflict — copy the file from the cloned repo to `~`.
-7. Run `yadm add`, `yadm commit`, `yadm push`, then `git pull --rebase`.
+7. Before `yadm pull --rebase`, check for unstaged yadm changes (`yadm status`). If a file shows as modified but both `yadm diff` and `yadm diff --cached` show no content change (metadata-only), restore it with `yadm checkout -- <file>` first.
+8. Run `yadm add`, `yadm commit`, `yadm push`, then `git pull --rebase`.
 
 ## Sparse checkout and exclusions
 
