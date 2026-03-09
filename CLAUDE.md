@@ -7,7 +7,8 @@
 
 - Use `yadm` for files under `~`; use `git` for files in this cloned repo.
 - Run `yadm` from any directory — it uses its own `GIT_DIR`/`GIT_WORK_TREE` internally, so `cd ~` before yadm commands is never needed.
-- After committing in this cloned repo via `git`, push with `git push` — do not rely on `yadm push`, as they are separate operations that can cause divergence.
+- After `git push`, run `yadm pull --rebase` to keep them in sync.
+- After `yadm push`, run `git pull --rebase` to keep them in sync.
 - When git and yadm diverge on the same remote, reconcile with `--rebase` (`git pull --rebase` / `yadm pull --rebase`).
 
 ## Sparse checkout and exclusions
