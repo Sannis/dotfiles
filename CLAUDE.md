@@ -1,6 +1,6 @@
 ## Overview
 
-- This folder is a cloned copy of the dotfiles repo (`github.com:Sannis/dotfiles.git`).
+- This folder is a cloned copy of the dotfiles repo.
 - yadm tracks the same repo with `$HOME` as the work tree.
 
 ## Git and yadm workflow
