@@ -21,7 +21,7 @@ When there are uncommitted changes in the cloned repo, use this workflow instead
 2. Split files into two groups:
    - Repo-only (excluded from yadm sparse checkout, e.g. `CLAUDE.md`, `README.md`, `setup.sh`)
    - Dotfiles (tracked by yadm and checked out to `~`)
-3. For repo-only files — `git commit` them locally, then ask the user before running `git push`.
+3. For repo-only files — `git commit` them locally, then run `git push` (the permission system will prompt the user automatically).
 4. For dotfiles — check if each is also dirty in yadm (`yadm status`).
 5. If the same dotfile is modified in both — stop and highlight the conflict for the user to decide.
 6. If no conflict — copy the file from the cloned repo to `~`.
