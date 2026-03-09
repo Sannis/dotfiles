@@ -9,9 +9,20 @@
 
 - Use `yadm` for files under `~`; use `git` for files in this cloned repo.
 - Run `yadm` from any directory — it uses its own `GIT_DIR`/`GIT_WORK_TREE` internally, so `cd ~` before yadm commands is never needed.
-- After `git push`, run `yadm pull --rebase` to keep them in sync.
-- After `yadm push`, run `git pull --rebase` to keep them in sync.
 - When git and yadm diverge on the same remote, reconcile with `--rebase` (`git pull --rebase` / `yadm pull --rebase`).
+
+## Syncing cloned repo changes to home
+
+`git push` is not allowed without confirmation — intentionally kept out of global permissions since it would apply to all repos. `yadm push` is safe to run freely as it only ever pushes dotfiles.
+
+When there are uncommitted changes in the cloned repo, use this workflow instead of `git push`:
+
+1. Run `git diff --name-only` to get modified files.
+2. Skip files excluded from yadm sparse checkout (e.g. `CLAUDE.md`, `README.md`, `setup.sh`).
+3. For each remaining file, check if it is also dirty in yadm (`yadm status`).
+4. If the same file is modified in both — stop and highlight the conflict for the user to decide.
+5. If no conflict — copy the file from the cloned repo to `~`.
+6. Run `yadm add`, `yadm commit`, `yadm push`, then `git pull --rebase`.
 
 ## Sparse checkout and exclusions
 
