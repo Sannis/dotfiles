@@ -18,11 +18,14 @@
 When there are uncommitted changes in the cloned repo, use this workflow instead of `git push`:
 
 1. Run `git diff --name-only` to get modified files.
-2. Skip files excluded from yadm sparse checkout (e.g. `CLAUDE.md`, `README.md`, `setup.sh`).
-3. For each remaining file, check if it is also dirty in yadm (`yadm status`).
-4. If the same file is modified in both — stop and highlight the conflict for the user to decide.
-5. If no conflict — copy the file from the cloned repo to `~`.
-6. Run `yadm add`, `yadm commit`, `yadm push`, then `git pull --rebase`.
+2. Split files into two groups:
+   - Repo-only (excluded from yadm sparse checkout, e.g. `CLAUDE.md`, `README.md`, `setup.sh`)
+   - Dotfiles (tracked by yadm and checked out to `~`)
+3. For repo-only files — `git commit` them locally, then ask the user before running `git push`.
+4. For dotfiles — check if each is also dirty in yadm (`yadm status`).
+5. If the same dotfile is modified in both — stop and highlight the conflict for the user to decide.
+6. If no conflict — copy the file from the cloned repo to `~`.
+7. Run `yadm add`, `yadm commit`, `yadm push`, then `git pull --rebase`.
 
 ## Sparse checkout and exclusions
 
