@@ -8,3 +8,9 @@
 - It is excluded from yadm's sparse checkout via `~/.local/share/yadm/repo.git/info/sparse-checkout`.
 - When git and yadm diverge on the same remote, reconcile with `--rebase` (`git pull --rebase` / `yadm pull --rebase`).
 - When excluding a new file from yadm's home directory, update both `~/.local/share/yadm/repo.git/info/sparse-checkout` and `.config/yadm/bootstrap` — the bootstrap overwrites sparse-checkout on a fresh clone.
+
+## Files to never track with yadm
+
+- `~/.claude.json` — local runtime state, not settings.
+- `~/.viminfo`, `~/.zsh_history` — runtime/history files.
+- `~/.ssh/*` except `~/.ssh/config` — keys and known_hosts are machine-specific secrets.
