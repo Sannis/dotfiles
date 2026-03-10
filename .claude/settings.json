@@ -25,7 +25,8 @@
       "Bash(yadm commit:*)",
       "Bash(yadm list:*)",
       "Bash(yadm push:*)",
-      "Bash(yadm pull:*)"
+      "Bash(yadm pull:*)",
+      "Bash(yadm show:*)"
     ]
   }
 }
