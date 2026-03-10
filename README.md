@@ -19,7 +19,7 @@ yadm clone git@github.com:Sannis/dotfiles.git
 
 yadm stores its bare repo at `~/.local/share/yadm/repo.git`. Dotfiles are tracked in-place in the home directory — no symlinks needed.
 
-On a fresh clone, yadm runs `.config/yadm/bootstrap`, which enables sparse checkout to keep repo-only files (`README.md`, `setup.sh`, `CLAUDE.md`) out of the home directory.
+On a fresh clone, yadm runs `~/.config/yadm/bootstrap`, which enables sparse checkout to keep repo-only files (`README.md`, `setup.sh`, `CLAUDE.md`) out of the home directory.
 
 ## Adding files to tracking
 
@@ -104,4 +104,3 @@ Tests for the gcloud permissions hook.
 #### `.config/zed/settings.json`
 
 Zed editor settings: JetBrains keymap, font sizes, One Light/Dark theme following system appearance, and telemetry preferences.
-
