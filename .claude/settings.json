@@ -1,4 +1,58 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(make:*)",
+      "Bash(mkdir:*)",
+      "Bash(open:*)",
+      "Bash(plantuml:*)",
+      "Bash(sort -t'|' -k1,1 -k2,2)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh repo clone:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run rerun:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run watch:*)",
+      "Bash(git add:*)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)",
+      "Bash(git log:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)",
+      "Bash(git stash:*)",
+      "Bash(git status:*)",
+      "Bash(yadm add:*)",
+      "Bash(yadm commit:*)",
+      "Bash(yadm diff:*)",
+      "Bash(yadm list:*)",
+      "Bash(yadm pull:*)",
+      "Bash(yadm push:*)",
+      "Bash(yadm show:*)",
+      "Bash(yadm sparse-checkout:*:*)",
+      "Bash(yadm status:*)",
+      "Bash(gcloud builds log:*)",
+      "Bash(gcloud network-management connectivity-tests create:*)",
+      "Bash(kubectl --context=* describe:*)",
+      "Bash(kubectl --context=* get:*)",
+      "Bash(kubectl --context=* get configmaps:*)",
+      "Bash(kubectl --context=* logs:*)",
+      "Bash(kubectl config get-contexts:*)",
+      "Bash(terraform fmt:*)",
+      "Bash(terraform plan:*)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)"
+    ]
+  },
+  "model": "opusplan",
   "hooks": {
     "PreToolUse": [
       {
@@ -10,23 +64,6 @@
           }
         ]
       }
-    ]
-  },
-  "permissions": {
-    "allow": [
-      "Bash(git status:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git pull:*)",
-      "Bash(yadm status:*)",
-      "Bash(yadm sparse-checkout:*:*)",
-      "Bash(yadm diff:*)",
-      "Bash(yadm add:*)",
-      "Bash(yadm commit:*)",
-      "Bash(yadm list:*)",
-      "Bash(yadm push:*)",
-      "Bash(yadm pull:*)",
-      "Bash(yadm show:*)"
     ]
   }
 }
