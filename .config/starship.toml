@@ -1,0 +1,13 @@
+[gcloud]
+disabled = true
+
+[username]
+show_always = true
+format = "[$user]($style) at "
+
+[hostname]
+ssh_only = false
+
+[directory]
+truncation_length = 100
+truncate_to_repo = true
