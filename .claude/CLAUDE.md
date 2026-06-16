@@ -29,6 +29,8 @@ When adding or reordering entries in the `permissions.allow` array in settings.j
 
 ## Markdown Style
 
+- Use plain Markdown with clear headings and short actionable steps.
+- Keep shell commands in fenced code blocks with `bash` syntax highlighting.
 - Prefer minimal emphasis markup (bold, italic) usage in text.
 - Use backticks (not bold) for network names, VPC names, hostnames, and similar technical identifiers.
 - Wrap long lines in markdown files at 120 characters. When wrapping, prefer breaking after a closing
