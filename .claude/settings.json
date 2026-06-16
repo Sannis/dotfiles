@@ -52,7 +52,7 @@
       "Read(**/*.p12)"
     ]
   },
-  "model": "opusplan",
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -65,5 +65,10 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "cship"
+  },
+  "agentPushNotifEnabled": true
 }
